@@ -77,7 +77,8 @@ server.on('upgrade', async (request, socket, head) => {
 
   try {
     const cookieHeader = `authjs.session-token=${token}; __Secure-authjs.session-token=${token}`;
-    const res = await fetch('http://localhost:3000/api/auth/session', { headers: { cookie: cookieHeader } });
+    const authUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const res = await fetch(`${authUrl}/api/auth/session`, { headers: { cookie: cookieHeader } });
     const session = await res.json();
 
     if (!session || !session.user) {
@@ -95,6 +96,8 @@ server.on('upgrade', async (request, socket, head) => {
   }
 });
 
-server.listen(1234, () => {
-  console.log('Yjs WebSocket Server listening on port 1234');
+const PORT = process.env.PORT || 1234;
+server.listen(PORT, () => {
+  console.log(`Yjs WebSocket Server listening on port ${PORT}`);
 });
+
