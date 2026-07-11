@@ -90,8 +90,9 @@ export const CollaborativeEditor = ({
     const ydoc = new Y.Doc();
 
     // 2. Connect to the custom WebSocket server
+    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'wss://docsurf-ws-production.up.railway.app';
     const wsProvider = new WebsocketProvider(
-      'ws://localhost:1234',
+      wsUrl,
       `${documentId}?token=${token}`,
       ydoc
     );
