@@ -50,7 +50,7 @@ export default async function DashboardPage() {
 
         {userRoles.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {userRoles.map((role) => {
+            {userRoles.map((role: typeof userRoles[number]) => {
               // Extract collaborator names (excluding current user)
               const collaborators = role.document.roles
                 .filter(r => r.userId !== session?.user?.id)
